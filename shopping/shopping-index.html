@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Given Beauty</title>
+    <meta name="description" content="The Given Beauty collection — accessibly luxurious hair, honestly made.">
+    <meta name="theme-color" content="#171615">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+        <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <a class="sr-only" href="#shop-content">Skip to content</a>
+    <!-- ============ HEADER ============ -->
+    <header id="shop-header">
+        <a href="../story/story-index.html" class="logo header-logo" aria-label="Given Beauty — home">
+            <span class="logo-main">GIVEN BEAUTY</span>
+            <span class="logo-sub">— BEAUTY, GIVEN. —</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Primary">
+            <a href="../story/story-index.html">Home</a>
+            <a href="shopping-index.html#/shop" class="active">Shop</a>
+            <a href="../story/story-index.html#story">Our Story</a>
+            <a href="../story/story-index.html#contact">Contact</a>
+        </nav>
+        <div class="header-actions">
+            <button class="header-icon-btn" id="search-focus-btn" aria-label="Search the collection">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="20" y1="20" x2="16.65" y2="16.65"></line></svg>
+            </button>
+            <button class="header-icon-btn" id="open-cart-btn" aria-label="Open shopping bag">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span class="cart-badge" id="cart-badge" aria-live="polite" aria-atomic="true">0</span>
+            </button>
+            <button class="header-icon-btn mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ============ MOBILE MENU ============ -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" role="dialog" aria-modal="true" aria-label="Menu">
+        <button class="close-menu" id="close-mobile-menu" aria-label="Close menu">&times;</button>
+        <nav class="mobile-nav">
+            <a href="../story/story-index.html">Home</a>
+            <a href="shopping-index.html#/shop">Shop</a>
+            <a href="../story/story-index.html#story">Our Story</a>
+            <a href="../story/story-index.html#contact">Contact</a>
+        </nav>
+    </div>
+
+    <template id="catalogue">
+        <article data-id="gb-everyday-wave" data-name="The Everyday Wave" data-slug="the-everyday-wave" data-category="wigs" data-collections="bestsellers" data-price="1850" data-compare-price="2400" data-length-value="long" data-length-label="22&quot;" data-colour-value="chocolate" data-colour-label="Chocolate Brown" data-texture-value="wavy" data-texture-label="Wavy" data-material="High-grade fibre" data-new="false">
+            <p>A softly waved 22&quot; wig in warm chocolate brown — natural movement, easy wear, and a realistic lustre that catches the light.</p>
+            <img src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with wavy chocolate brown hair" data-label="Sample view" data-pos="50% 50%">
+        </article>
+        <article data-id="gb-soft-curl" data-name="The Soft Curl" data-slug="the-soft-curl" data-category="wigs" data-collections="new" data-price="1650" data-length-value="medium" data-length-label="20&quot;" data-colour-value="natural-black" data-colour-label="Natural Black" data-texture-value="curly" data-texture-label="Curly" data-material="Blended hair" data-new="true">
+            <p>A 20&quot; curl with a soft, natural finish — light, breathable, and made for everyday wear.</p>
+            <img src="https://images.unsplash.com/photo-1620331311520-246422fd82f9?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with soft natural black curls" data-label="Sample view" data-pos="50% 50%">
+        </article>
+        <article data-id="gb-sleek-straight" data-name="The Sleek Straight" data-slug="the-sleek-straight" data-category="wigs" data-collections="bestsellers" data-price="1950" data-length-value="long" data-length-label="26&quot;" data-colour-value="jet-black" data-colour-label="Jet Black" data-texture-value="straight" data-texture-label="Straight" data-material="High-grade fibre" data-new="false">
+            <p>A sleek 26&quot; straight wig with a modern, editorial silhouette — sharp, simple, and effortless.</p>
+            <img src="https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with sleek straight jet black hair" data-label="Sample view" data-pos="50% 50%">
+        </article>
+        <article data-id="gb-deep-wave" data-name="The Deep Wave" data-slug="the-deep-wave" data-category="wigs" data-collections="new" data-price="2150" data-length-value="long" data-length-label="24&quot;" data-colour-value="honey-blonde" data-colour-label="Honey Blonde" data-texture-value="wavy" data-texture-label="Wavy" data-material="High-grade fibre" data-new="true">
+            <p>A deep 24&quot; wave in honey blonde — rich, textured, and made to move beautifully in the light.</p>
+            <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with deep honey blonde waves" data-label="Sample view" data-pos="50% 50%">
+        </article>
+        <article data-id="gb-bob" data-name="The Bob" data-slug="the-bob" data-category="wigs" data-collections="bestsellers" data-price="1250" data-compare-price="1600" data-length-value="short" data-length-label="12&quot;" data-colour-value="auburn" data-colour-label="Auburn" data-texture-value="straight" data-texture-label="Straight" data-material="Blended hair" data-new="false">
+            <p>A classic 12&quot; bob in warm auburn — the easiest way to try a shorter silhouette.</p>
+            <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with a short auburn bob" data-label="Sample view" data-pos="50% 50%">
+        </article>
+        <article data-id="gb-volume-curl" data-name="The Volume Curl" data-slug="the-volume-curl" data-category="wigs" data-collections="bestsellers" data-price="1750" data-length-value="medium" data-length-label="18&quot;" data-colour-value="dark-brown" data-colour-label="Dark Brown" data-texture-value="curly" data-texture-label="Curly" data-material="High-grade fibre" data-new="false">
+            <p>An 18&quot; curl with beautiful volume and a soft, natural density — expressive and easy.</p>
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with voluminous dark brown curls" data-label="Sample view" data-pos="50% 50%">
+        </article>
+    </template>
+
+    <!-- ============ MAIN ============ -->
+    <main class="shop-main" id="shop-content">
+
+        <!-- INTRO -->
+        <section class="shop-intro">
+            <div class="container">
+                <nav class="shop-breadcrumb" aria-label="Breadcrumb">
+                    <a href="../story/story-index.html">Home</a>
+                    <span aria-hidden="true">/</span>
+                    <span aria-current="page">Shop</span>
+                </nav>
+                <div class="shop-intro-content">
+                    <span class="label">The Given Beauty Collection</span>
+                    <h1 class="shop-intro-display">Your next look<br>begins here.</h1>
+                    <p class="shop-intro-body">Discover beautiful styles that let you express every side of yourself — without compromising your budget.</p>
+                    <p class="shop-preview-note">Sample catalogue and prices for prototype review — all product details and prices are samples, not confirmed offers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section class="shop-categories-wrap" aria-label="Product categories">
+            <div class="container">
+                <div class="shop-categories" id="category-tabs" role="tablist" aria-label="Browse by category">
+                    <button class="shop-category active" data-category="all" role="tab" aria-selected="true">All<span class="shop-category-count" data-count-for="all"></span></button>
+                    <button class="shop-category" data-category="wigs" role="tab" aria-selected="false">Wigs<span class="shop-category-count" data-count-for="wigs"></span></button>
+                    <button class="shop-category" data-category="new" role="tab" aria-selected="false">New Arrivals<span class="shop-category-count" data-count-for="new"></span></button>
+                    <button class="shop-category" data-category="bestsellers" role="tab" aria-selected="false">Bestsellers<span class="shop-category-count" data-count-for="bestsellers"></span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOOLBAR + GRID -->
+        <section class="shop-grid-wrap">
+            <div class="container">
+                <div class="shop-toolbar">
+                    <span class="shop-count" id="shop-count" aria-live="polite" aria-atomic="true">Showing 6 of 6 pieces</span>
+                    <div class="shop-toolbar-right">
+                        <div class="shop-search-wrap">
+                            <label for="shop-search" class="sr-only">Search the collection</label>
+                            <input type="search" id="shop-search" class="shop-search" placeholder="Search the collection" autocomplete="off" aria-label="Search the collection">
+                            <button class="search-clear" id="search-clear" aria-label="Clear search" type="button">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            </button>
+                        </div>
+                        <div class="shop-sort">
+                            <label for="shop-sort-select" class="sr-only">Sort by</label>
+                            <select id="shop-sort-select">
+                                <option value="featured">Featured</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="newest">Newest</option>
+                            </select>
+                        </div>
+                        <button class="shop-filter-btn" id="open-filter-btn" aria-expanded="false" aria-controls="filter-drawer">
+                            Filter
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="10" y1="18" x2="14" y2="18"></line></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="shop-active-filters" id="active-filters" aria-live="polite"></div>
+
+                <div class="shop-grid" id="product-grid"></div>
+
+                <div class="shop-empty" id="shop-empty">
+                    <h3 id="shop-empty-title">Nothing matches just yet.</h3>
+                    <p id="shop-empty-body">Try another word, or clear the filters to see the full collection.</p>
+                    <button id="empty-clear-btn">Clear search &amp; filters</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- REASSURANCE -->
+        <section class="shop-reassurance">
+            <div class="container">
+                <div class="shop-reassurance-header">
+                    <span class="label">Why Given Beauty</span>
+                    <h2>Thoughtfully made.<br>Honestly priced.</h2>
+                </div>
+                <div class="reassurance-grid">
+                    <article class="reassurance-item">
+                        <span class="reassurance-num">01</span>
+                        <h3>Beautifully Accessible</h3>
+                        <p>Carefully selected fibre and blended hair — natural-looking, easy to wear, and honestly priced.</p>
+                    </article>
+                    <article class="reassurance-item">
+                        <span class="reassurance-num">02</span>
+                        <h3>Thoughtfully Chosen</h3>
+                        <p>Each style is chosen for the way it looks and feels in real light — soft texture, realistic lustre.</p>
+                    </article>
+                    <article class="reassurance-item">
+                        <span class="reassurance-num">03</span>
+                        <h3>Honest About Materials</h3>
+                        <p>We are transparent about what we make: high-grade fibre and blended hair. Never human hair.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLOSING -->
+        <section class="shop-closing">
+            <div class="container">
+                <div class="shop-closing-content">
+                    <span class="label">Given Beauty</span>
+                    <h2 class="shop-closing-display">Beauty, <em>Given.</em></h2>
+                    <p class="shop-closing-sub">You are the poetry of God.</p>
+                    <a href="../story/story-index.html#story" class="shop-closing-cta">
+                        Explore Our Story
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="shop-grid-wrap" id="checkout-page" hidden>
+            <div class="container">
+                <nav class="shop-breadcrumb" aria-label="Breadcrumb">
+                    <a href="shopping-index.html#/shop">Shop</a>
+                    <span aria-hidden="true">/</span>
+                    <span aria-current="page">Order request</span>
+                </nav>
+                <div class="shop-intro-content">
+                    <span class="label">Order request</span>
+                    <h1 class="shop-intro-display" tabindex="-1">Review your order</h1>
+                    <p>This is an order request. Payment is by EFT after submission, and the order is confirmed once payment is received.</p>
+                </div>
+                <div id="checkout-lines"></div>
+                <div class="cart-summary-row">
+                    <span class="cart-summary-label">Subtotal</span>
+                    <span class="cart-summary-total" id="checkout-subtotal"></span>
+                </div>
+                <p>Delivery cost to be confirmed.</p>
+                <form id="checkout-form">
+                    <label for="checkout-name">Full name</label>
+                    <input id="checkout-name" name="name" type="text" autocomplete="name" required>
+                    <label for="checkout-email">Email</label>
+                    <input id="checkout-email" name="email" type="email" autocomplete="email" required>
+                    <label for="checkout-phone">Phone or WhatsApp</label>
+                    <input id="checkout-phone" name="phone" type="tel" autocomplete="tel" required>
+                    <label for="checkout-address">Delivery address</label>
+                    <textarea id="checkout-address" name="address" autocomplete="street-address" required></textarea>
+                    <button type="submit" class="product-modal-add" id="submit-order">Submit order request</button>
+                </form>
+                <a href="shopping-index.html#/shop">Continue shopping</a>
+            </div>
+        </section>
+        <section class="shop-grid-wrap" id="thanks-page" hidden>
+            <div class="container">
+                <h1 class="shop-intro-display" tabindex="-1">Order request received</h1>
+                <p>This is an order request. It is confirmed once payment is received.</p>
+                <p class="thanks-reference-row">Payment reference: <strong id="thanks-reference"></strong>
+                    <button type="button" id="copy-reference">Copy reference</button>
+                </p>
+                <p id="copy-status" aria-live="polite"></p>
+                <div id="thanks-lines"></div>
+                <div class="cart-summary-row">
+                    <span class="cart-summary-label">Subtotal</span>
+                    <span class="cart-summary-total" id="thanks-subtotal"></span>
+                </div>
+                <section class="thanks-payment" aria-labelledby="eft-heading">
+                    <h2 id="eft-heading">SAMPLE EFT details — all values are placeholders</h2>
+                    <p>Bank: <span id="eft-bank"></span></p>
+                    <p>Account name: <span id="eft-account-name"></span></p>
+                    <p>Account number: <span id="eft-account-number"></span></p>
+                    <p>Branch code: <span id="eft-branch-code"></span></p>
+                    <p>Reference: <span id="eft-reference"></span></p>
+                    <p>Amount: <span id="eft-amount"></span></p>
+                </section>
+                <p class="thanks-delivery-note">Delivery cost, stock hold time and confirmation email are to be confirmed.</p>
+                <button type="button" id="download-order-pdf">Download PDF</button>
+                <button type="button" id="print-order">Print</button>
+                <p class="thanks-pdf-note">PDF photos only work when this site is served over HTTP or HTTPS. If a photo cannot be read, the PDF is still created without it.</p>
+                <a href="shopping-index.html#/shop">Return to shop</a>
+            </div>
+        </section>
+        <section class="shop-grid-wrap" id="route-not-found" hidden>
+            <div class="container">
+                <h1 tabindex="-1">Product not found</h1>
+                <p>That product is not in the sample catalogue.</p>
+                <a href="shopping-index.html#/shop">Return to shop</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-emblem">
+                <a href="../story/story-index.html" class="logo footer-logo" aria-label="Given Beauty — home">
+                    <span class="logo-main">GIVEN BEAUTY</span>
+                    <span class="logo-sub">— BEAUTY, GIVEN. —</span>
+                </a>
+            </div>
+
+            <h2 class="footer-display">Beauty, <em>Given.</em></h2>
+            <p class="footer-tagline">Because beauty is not a privilege — it is a gift, given freely to every woman.</p>
+
+            <div class="footer-divider"></div>
+
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="../story/story-index.html">Home</a>
+                <a href="shopping-index.html#/shop">Shop</a>
+                <a href="../story/story-index.html#story">Our Story</a>
+                <a href="../story/story-index.html#looks">The Looks</a>
+                <a href="../story/story-index.html#contact">Contact</a>
+            </nav>
+
+            <div class="footer-social">
+                <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg></a>
+                <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+            </div>
+
+            <div class="footer-bottom">
+                <span class="footer-copyright">© 2026 Given Beauty. All rights reserved.</span>
+                <a href="#top" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">
+                    Back to top
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ FILTER DRAWER ============ -->
+    <div class="drawer-backdrop" id="filter-backdrop"></div>
+    <aside class="drawer" id="filter-drawer" role="dialog" aria-modal="true" aria-labelledby="filter-drawer-title" aria-hidden="true">
+        <div class="drawer-header">
+            <h2 id="filter-drawer-title">Filter</h2>
+            <button class="drawer-close" id="close-filter-btn" aria-label="Close filters">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="drawer-body">
+            <div class="filter-group">
+                <span class="filter-group-title">Length</span>
+                <div class="filter-chips" data-filter-group="length">
+                    <button class="filter-chip" data-value="short">Short</button>
+                    <button class="filter-chip" data-value="medium">Medium</button>
+                    <button class="filter-chip" data-value="long">Long</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <span class="filter-group-title">Colour</span>
+                <div class="filter-chips" data-filter-group="colour">
+                    <button class="filter-chip" data-value="jet-black">Jet Black</button>
+                    <button class="filter-chip" data-value="natural-black">Natural Black</button>
+                    <button class="filter-chip" data-value="chocolate">Chocolate Brown</button>
+                    <button class="filter-chip" data-value="dark-brown">Dark Brown</button>
+                    <button class="filter-chip" data-value="honey-blonde">Honey Blonde</button>
+                    <button class="filter-chip" data-value="auburn">Auburn</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <span class="filter-group-title">Texture</span>
+                <div class="filter-chips" data-filter-group="texture">
+                    <button class="filter-chip" data-value="straight">Straight</button>
+                    <button class="filter-chip" data-value="wavy">Wavy</button>
+                    <button class="filter-chip" data-value="curly">Curly</button>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-footer">
+            <button class="drawer-clear" id="clear-filters-btn">Clear all</button>
+            <button class="drawer-apply" id="apply-filters-btn">Apply</button>
+        </div>
+    </aside>
+
+    <!-- ============ CART DRAWER ============ -->
+    <div class="drawer-backdrop" id="cart-backdrop"></div>
+    <aside class="drawer cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" aria-hidden="true">
+        <div class="drawer-header">
+            <h2 id="cart-drawer-title">Your bag</h2>
+            <button class="drawer-close" id="close-cart-btn" aria-label="Close bag">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="drawer-body" id="cart-body"></div>
+        <div class="cart-summary" id="cart-summary" style="display: none;">
+            <div class="cart-summary-row">
+                <span class="cart-summary-label">Subtotal</span>
+                <span class="cart-summary-total" id="cart-subtotal">R0</span>
+            </div>
+            <p class="cart-summary-note">Shipping and final totals calculated at checkout.</p>
+            <a class="cart-checkout" id="cart-checkout" href="shopping-index.html#/checkout">Review your order</a>
+            <p class="cart-checkout-note">Order requests are paid by EFT after submission.</p>
+        </div>
+    </aside>
+
+    <!-- ============ PRODUCT MODAL ============ -->
+    <div class="product-modal" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" aria-hidden="true">
+        <div class="product-modal-content">
+            <button class="product-modal-close" id="close-product-modal" aria-label="Close product details">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="product-modal-image" id="product-modal-image" role="button" tabindex="0" aria-label="Open image viewer">
+                <img id="product-modal-img" src="" alt="" width="800" height="1000">
+            </div>
+            <div class="product-modal-details">
+                <span class="label" id="product-modal-label">Wig</span>
+                <h2 class="product-modal-name" id="product-modal-title"></h2>
+                <div class="product-modal-price" id="product-modal-price"></div>
+                <p class="product-modal-desc" id="product-modal-desc"></p>
+                <div class="product-modal-attrs" id="product-modal-attrs"></div>
+                <div id="product-thumbnails"></div>
+                <div class="product-modal-actions">
+                    <div class="qty-selector" role="group" aria-label="Quantity">
+                        <button id="modal-qty-dec" aria-label="Decrease quantity">−</button>
+                        <span id="modal-qty" aria-live="polite">1</span>
+                        <button id="modal-qty-inc" aria-label="Increase quantity">+</button>
+                    </div>
+                    <button class="product-modal-add" id="modal-add-to-bag">Add to bag</button>
+                </div>
+                <p class="product-modal-note">High-grade fibre / blended hair — not human hair.</p>
+            </div>
+        </div>
+    </div>
+
+    <dialog class="product-modal" id="image-lightbox" aria-labelledby="lightbox-caption">
+        <div class="product-modal-content">
+            <button class="product-modal-close" type="button" id="close-lightbox" aria-label="Close image viewer">&times;</button>
+            <div class="product-modal-image">
+                <img id="lightbox-image" src="" alt="">
+            </div>
+            <div class="product-modal-details">
+                <h2 id="lightbox-caption"></h2>
+                <p>Sample image</p>
+                <div class="product-modal-actions">
+                    <button type="button" id="lightbox-previous">Previous</button>
+                    <span id="lightbox-counter"></span>
+                    <button type="button" id="lightbox-next">Next</button>
+                </div>
+                <div id="lightbox-thumbnails"></div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- ============ TOAST ============ -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        <span id="toast-msg">Added to bag</span>
+    </div>
+
+        <script src="script.js" defer></script>
+</body>
+</html>
