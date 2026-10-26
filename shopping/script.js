@@ -14,6 +14,15 @@
         });
         const REFERENCE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
         const MAX_QUANTITY = 10;
+        const shopIntroItems = document.querySelectorAll('.shop-intro > .container > .shop-intro-content > *');
+        if (document.documentElement.classList.contains('shop-scroll-reveal') && shopIntroItems.length) {
+            const introObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    entry.target.classList.toggle('is-visible', entry.isIntersecting);
+                });
+            }, { threshold: 0.15 });
+            shopIntroItems.forEach(item => introObserver.observe(item));
+        }
         const SAMPLE_PRODUCTS = [...document.querySelector('#catalogue').content.querySelectorAll('article')].map(article => {
             const images = [...article.querySelectorAll('img')];
             const image = images[0];
@@ -775,32 +784,45 @@
                 const pdf = new JsPDF({ unit: 'mm', format: 'a4' });
                 const pageWidth = pdf.internal.pageSize.getWidth();
                 const pageHeight = pdf.internal.pageSize.getHeight();
-                let y = 18;
-                const addTableHeading = () => {
+                const margin = 15;
+                const contentWidth = pageWidth - margin * 2;
+                let y = 50;
+                const drawPageChrome = () => {
+                    pdf.setFillColor(243, 238, 228);
+                    pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+                    pdf.setFillColor(33, 31, 28);
+                    pdf.rect(0, 0, pageWidth, 38, 'F');
+                    pdf.setTextColor(200, 174, 122);
                     pdf.setFont('helvetica', 'bold');
+                    pdf.setFontSize(17);
+                    pdf.text('GIVEN BEAUTY', margin, 15);
+                    pdf.setTextColor(243, 238, 228);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setFontSize(10);
+                    pdf.text('Order request', margin, 23);
+                    pdf.setFontSize(8);
+                    pdf.text(`Reference: ${order.reference}`, pageWidth - margin, 14, { align: 'right' });
+                    pdf.text(`Customer: ${order.customerName}`, pageWidth - margin, 20, { align: 'right' });
+                    pdf.text(new Date(order.timestamp).toLocaleString('en-ZA'), pageWidth - margin, 26, { align: 'right' });
+                    pdf.setDrawColor(200, 174, 122);
+                    pdf.setLineWidth(0.35);
+                    pdf.line(margin, 32, pageWidth - margin, 32);
+                };
+                const addTableHeading = () => {
+                    pdf.setFillColor(33, 31, 28);
+                    pdf.rect(margin, y - 4, contentWidth, 9, 'F');
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setFontSize(8);
+                    pdf.setTextColor(243, 238, 228);
                     pdf.text('Item', 46, y);
                     pdf.text('Qty', pageWidth - 57, y);
                     pdf.text('Line total', pageWidth - 15, y, { align: 'right' });
-                    y += 5;
-                    pdf.line(15, y, pageWidth - 15, y);
-                    y += 5;
+                    y += 10;
                     pdf.setFont('helvetica', 'normal');
+                    pdf.setFontSize(10);
+                    pdf.setTextColor(33, 31, 28);
                 };
-                pdf.setFont('helvetica', 'bold');
-                pdf.setFontSize(18);
-                pdf.text('GIVEN BEAUTY', 15, y);
-                y += 9;
-                pdf.setFontSize(14);
-                pdf.text('Order request', 15, y);
-                y += 8;
-                pdf.setFont('helvetica', 'normal');
-                pdf.setFontSize(10);
-                pdf.text(`Payment reference: ${order.reference}`, 15, y);
-                y += 6;
-                pdf.text(`Customer: ${order.customerName}`, 15, y);
-                y += 6;
-                pdf.text(`Date: ${new Date(order.timestamp).toLocaleString('en-ZA')}`, 15, y);
-                y += 12;
+                drawPageChrome();
                 addTableHeading();
                 for (const item of order.items) {
                     const nameLines = pdf.splitTextToSize(item.name, pageWidth - 115);
@@ -808,58 +830,110 @@
                     const rowHeight = Math.max(32, 8 + (nameLines.length + materialLines.length) * 4);
                     if (y + rowHeight > pageHeight - 58) {
                         pdf.addPage();
-                        y = 18;
+                        drawPageChrome();
+                        y = 50;
                         addTableHeading();
                     }
                     const photo = await createPdfPhoto(item);
                     if (photo) pdf.addImage(photo, 'JPEG', 15, y, 24, 30);
+                    pdf.setTextColor(33, 31, 28);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setFontSize(10);
                     pdf.text(nameLines, 44, y + 4);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setTextColor(107, 98, 87);
                     pdf.setFontSize(8);
                     pdf.text(materialLines, 44, y + 8 + nameLines.length * 4);
-                    pdf.setFontSize(10);
+                    pdf.setTextColor(33, 31, 28);
                     pdf.text(String(item.quantity), pageWidth - 57, y + 7);
                     pdf.text(fmtR(item.unitPrice * item.quantity), pageWidth - 15, y + 7, { align: 'right' });
+                    pdf.setDrawColor(214, 204, 185);
+                    pdf.line(margin, y + rowHeight, pageWidth - margin, y + rowHeight);
+                    pdf.setFontSize(10);
                     y += rowHeight;
                 }
-                if (y > pageHeight - 60) {
+
+                const cardGap = 6;
+                const cardWidth = (contentWidth - cardGap) / 2;
+                const cardHeight = 58;
+                const notice = 'This is an order request and is confirmed once payment is received. Delivery cost, stock hold time and confirmation email are to be confirmed.';
+                const noticeLines = pdf.splitTextToSize(notice, contentWidth);
+                const paymentSectionHeight = 9 + cardHeight + 7 + noticeLines.length * 4.5 + 26;
+                if (y + 8 + paymentSectionHeight > pageHeight - 16) {
                     pdf.addPage();
-                    y = 18;
+                    drawPageChrome();
+                    y = 50;
                 }
-                pdf.line(15, y, pageWidth - 15, y);
+                pdf.setDrawColor(200, 174, 122);
+                pdf.setLineWidth(0.5);
+                pdf.line(margin, y, pageWidth - margin, y);
                 y += 8;
                 pdf.setFont('helvetica', 'bold');
-                pdf.text(`Subtotal: ${fmtR(order.subtotal)}`, pageWidth - 15, y, { align: 'right' });
-                y += 12;
                 pdf.setFontSize(12);
-                pdf.text('SAMPLE EFT details — placeholders', 15, y);
-                y += 7;
+                pdf.setTextColor(33, 31, 28);
+                pdf.text(`Subtotal: ${fmtR(order.subtotal)}`, pageWidth - margin, y, { align: 'right' });
+                y += 9;
+
+                const drawPaymentCard = (x, title, entries) => {
+                    pdf.setFillColor(33, 31, 28);
+                    pdf.setDrawColor(200, 174, 122);
+                    pdf.setLineWidth(0.35);
+                    pdf.roundedRect(x, y, cardWidth, cardHeight, 1.5, 1.5, 'FD');
+                    pdf.setFillColor(200, 174, 122);
+                    pdf.rect(x, y, 2, cardHeight, 'F');
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setFontSize(9);
+                    pdf.setTextColor(200, 174, 122);
+                    pdf.text(title.toUpperCase(), x + 7, y + 9);
+                    let entryY = y + 16;
+                    entries.forEach(([label, value]) => {
+                        pdf.setFont('helvetica', 'normal');
+                        pdf.setFontSize(6.5);
+                        pdf.setTextColor(184, 170, 152);
+                        pdf.text(label.toUpperCase(), x + 7, entryY);
+                        pdf.setFont('helvetica', 'bold');
+                        pdf.setFontSize(8);
+                        pdf.setTextColor(243, 238, 228);
+                        const valueLines = pdf.splitTextToSize(String(value), cardWidth - 14);
+                        pdf.text(valueLines, x + 7, entryY + 4);
+                        entryY += Math.max(9, 4 + valueLines.length * 3.5);
+                    });
+                };
+                drawPaymentCard(margin, 'Bank details', [
+                    ['Bank', SAMPLE_EFT_DETAILS.bank],
+                    ['Account name', SAMPLE_EFT_DETAILS.accountName],
+                    ['Account number', SAMPLE_EFT_DETAILS.accountNumber],
+                    ['Branch code', SAMPLE_EFT_DETAILS.branchCode]
+                ]);
+                drawPaymentCard(margin + cardWidth + cardGap, 'Payment reference', [
+                    ['Reference', order.reference],
+                    ['Amount to pay', fmtR(order.subtotal)]
+                ]);
+                y += cardHeight + 7;
+                pdf.setFillColor(231, 221, 205);
+                pdf.roundedRect(margin, y, contentWidth, noticeLines.length * 4.5 + 7, 1, 1, 'F');
                 pdf.setFont('helvetica', 'normal');
-                pdf.setFontSize(9);
-                const eftLines = [
-                    `Bank: ${SAMPLE_EFT_DETAILS.bank}`,
-                    `Account name: ${SAMPLE_EFT_DETAILS.accountName}`,
-                    `Account number: ${SAMPLE_EFT_DETAILS.accountNumber}`,
-                    `Branch code: ${SAMPLE_EFT_DETAILS.branchCode}`,
-                    `Reference: ${order.reference}`,
-                    `Amount: ${fmtR(order.subtotal)}`
+                pdf.setFontSize(8);
+                pdf.setTextColor(57, 51, 44);
+                pdf.text(noticeLines, margin + 4, y + 5);
+                const placeholderNotice = [
+                    'SAMPLE PAYMENT DETAILS',
+                    'Bank details are placeholders. Confirm them before making payment.'
                 ];
-                eftLines.forEach(line => {
-                    if (y > pageHeight - 28) {
-                        pdf.addPage();
-                        y = 18;
-                    }
-                    pdf.text(line, 15, y);
-                    y += 5;
-                });
-                y += 3;
                 pdf.setFont('helvetica', 'bold');
-                const notice = 'This is an order request and is confirmed once payment is received. Delivery cost, stock hold time and confirmation email are to be confirmed.';
-                const noticeLines = pdf.splitTextToSize(notice, pageWidth - 30);
-                if (y + noticeLines.length * 5 > pageHeight - 12) {
-                    pdf.addPage();
-                    y = 18;
+                pdf.setFontSize(7);
+                pdf.setTextColor(107, 98, 87);
+                pdf.text(placeholderNotice, margin, y + noticeLines.length * 4.5 + 12);
+                for (let pageNumber = 1; pageNumber <= pdf.internal.getNumberOfPages(); pageNumber += 1) {
+                    pdf.setPage(pageNumber);
+                    pdf.setDrawColor(200, 174, 122);
+                    pdf.setTextColor(107, 98, 87);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setFontSize(7);
+                    pdf.line(margin, pageHeight - 12, pageWidth - margin, pageHeight - 12);
+                    pdf.text('BEAUTY, GIVEN.', margin, pageHeight - 7);
+                    pdf.text(`Page ${pageNumber}`, pageWidth - margin, pageHeight - 7, { align: 'right' });
                 }
-                pdf.text(noticeLines, 15, y);
                 pdf.save(`GivenBeauty-${order.reference}.pdf`);
             } catch (error) {
                 console.error('Could not generate the order request PDF.', error);
@@ -1166,6 +1240,7 @@
             $('#route-not-found').hidden = routeName !== 'not-found';
         }
 
+        let hasRouted = false;
         function route() {
             const raw = window.location.hash || '#/shop';
             const segments = raw.startsWith('#/') ? raw.slice(2).split('/').filter(Boolean) : [];
@@ -1222,10 +1297,11 @@
             }
             updateCartBadge();
             window.scrollTo(0, 0);
-            if (heading) {
+            if (heading && hasRouted) {
                 heading.setAttribute('tabindex', '-1');
                 heading.focus({ preventScroll: true });
             }
+            hasRouted = true;
         }
 
         window.addEventListener('hashchange', route);
@@ -1258,15 +1334,11 @@
             $('#shop-header').classList.toggle('scrolled', window.scrollY > 50);
         }, { passive: true });
 
-        // ---- Mobile menu ----
-        const mobileMenu = $('#mobile-menu-overlay');
-        $('#mobile-menu-btn').addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        $('#close-mobile-menu').addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
+        $('.shop-scroll-cue').addEventListener('click', () => {
+            $('#shop-categories').scrollIntoView({
+                behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+                block: 'start'
+            });
         });
 
         // ---- Initial render ----

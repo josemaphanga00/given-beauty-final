@@ -15,7 +15,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
-        <link rel="stylesheet" href="styles.css">
+    <script>
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+            document.documentElement.classList.add('shop-scroll-reveal');
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -26,12 +31,6 @@
             <span class="logo-main">GIVEN BEAUTY</span>
             <span class="logo-sub">— BEAUTY, GIVEN. —</span>
         </a>
-        <nav class="desktop-nav" aria-label="Primary">
-            <a href="../story/story-index.html">Home</a>
-            <a href="shopping-index.html#/shop" class="active">Shop</a>
-            <a href="../story/story-index.html#story">Our Story</a>
-            <a href="../story/story-index.html#contact">Contact</a>
-        </nav>
         <div class="header-actions">
             <button class="header-icon-btn" id="search-focus-btn" aria-label="Search the collection">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="20" y1="20" x2="16.65" y2="16.65"></line></svg>
@@ -40,47 +39,33 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                 <span class="cart-badge" id="cart-badge" aria-live="polite" aria-atomic="true">0</span>
             </button>
-            <button class="header-icon-btn mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
         </div>
     </header>
-
-    <!-- ============ MOBILE MENU ============ -->
-    <div class="mobile-menu-overlay" id="mobile-menu-overlay" role="dialog" aria-modal="true" aria-label="Menu">
-        <button class="close-menu" id="close-mobile-menu" aria-label="Close menu">&times;</button>
-        <nav class="mobile-nav">
-            <a href="../story/story-index.html">Home</a>
-            <a href="shopping-index.html#/shop">Shop</a>
-            <a href="../story/story-index.html#story">Our Story</a>
-            <a href="../story/story-index.html#contact">Contact</a>
-        </nav>
-    </div>
 
     <template id="catalogue">
         <article data-id="gb-everyday-wave" data-name="The Everyday Wave" data-slug="the-everyday-wave" data-category="wigs" data-collections="bestsellers" data-price="1850" data-compare-price="2400" data-length-value="long" data-length-label="22&quot;" data-colour-value="chocolate" data-colour-label="Chocolate Brown" data-texture-value="wavy" data-texture-label="Wavy" data-material="High-grade fibre" data-new="false">
             <p>A softly waved 22&quot; wig in warm chocolate brown — natural movement, easy wear, and a realistic lustre that catches the light.</p>
-            <img src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with wavy chocolate brown hair" data-label="Sample view" data-pos="50% 50%">
+            <img src="assets/_ (11).jpeg" alt="Woman with wavy chocolate brown hair" data-label="Sample view" data-pos="50% 50%">
         </article>
         <article data-id="gb-soft-curl" data-name="The Soft Curl" data-slug="the-soft-curl" data-category="wigs" data-collections="new" data-price="1650" data-length-value="medium" data-length-label="20&quot;" data-colour-value="natural-black" data-colour-label="Natural Black" data-texture-value="curly" data-texture-label="Curly" data-material="Blended hair" data-new="true">
             <p>A 20&quot; curl with a soft, natural finish — light, breathable, and made for everyday wear.</p>
-            <img src="https://images.unsplash.com/photo-1620331311520-246422fd82f9?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with soft natural black curls" data-label="Sample view" data-pos="50% 50%">
+            <img src="assets/_ (12).jpeg" alt="Woman with soft natural black curls" data-label="Sample view" data-pos="50% 50%">
         </article>
         <article data-id="gb-sleek-straight" data-name="The Sleek Straight" data-slug="the-sleek-straight" data-category="wigs" data-collections="bestsellers" data-price="1950" data-length-value="long" data-length-label="26&quot;" data-colour-value="jet-black" data-colour-label="Jet Black" data-texture-value="straight" data-texture-label="Straight" data-material="High-grade fibre" data-new="false">
             <p>A sleek 26&quot; straight wig with a modern, editorial silhouette — sharp, simple, and effortless.</p>
-            <img src="https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with sleek straight jet black hair" data-label="Sample view" data-pos="50% 50%">
+            <img src="assets/chokehair.jpeg" alt="Woman with sleek straight jet black hair" data-label="Sample view" data-pos="50% 50%">
         </article>
         <article data-id="gb-deep-wave" data-name="The Deep Wave" data-slug="the-deep-wave" data-category="wigs" data-collections="new" data-price="2150" data-length-value="long" data-length-label="24&quot;" data-colour-value="honey-blonde" data-colour-label="Honey Blonde" data-texture-value="wavy" data-texture-label="Wavy" data-material="High-grade fibre" data-new="true">
             <p>A deep 24&quot; wave in honey blonde — rich, textured, and made to move beautifully in the light.</p>
-            <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with deep honey blonde waves" data-label="Sample view" data-pos="50% 50%">
+            <img src="assets/How To Start A Hair Extension Business From Scratch.jpeg" alt="Woman with deep honey blonde waves" data-label="Sample view" data-pos="50% 50%">
         </article>
         <article data-id="gb-bob" data-name="The Bob" data-slug="the-bob" data-category="wigs" data-collections="bestsellers" data-price="1250" data-compare-price="1600" data-length-value="short" data-length-label="12&quot;" data-colour-value="auburn" data-colour-label="Auburn" data-texture-value="straight" data-texture-label="Straight" data-material="Blended hair" data-new="false">
             <p>A classic 12&quot; bob in warm auburn — the easiest way to try a shorter silhouette.</p>
-            <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with a short auburn bob" data-label="Sample view" data-pos="50% 50%">
+            <img src="assets/Shop _ Hair for the Girls.jpeg" alt="Woman with a short auburn bob" data-label="Sample view" data-pos="50% 50%">
         </article>
         <article data-id="gb-volume-curl" data-name="The Volume Curl" data-slug="the-volume-curl" data-category="wigs" data-collections="bestsellers" data-price="1750" data-length-value="medium" data-length-label="18&quot;" data-colour-value="dark-brown" data-colour-label="Dark Brown" data-texture-value="curly" data-texture-label="Curly" data-material="High-grade fibre" data-new="false">
             <p>An 18&quot; curl with beautiful volume and a soft, natural density — expressive and easy.</p>
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Woman with voluminous dark brown curls" data-label="Sample view" data-pos="50% 50%">
+            <img src="assets/BillionheirOfficial.jpeg" alt="Woman with voluminous dark brown curls" data-label="Sample view" data-pos="50% 50%">
         </article>
     </template>
 
@@ -101,11 +86,15 @@
                     <p class="shop-intro-body">Discover beautiful styles that let you express every side of yourself — without compromising your budget.</p>
                     <p class="shop-preview-note">Sample catalogue and prices for prototype review — all product details and prices are samples, not confirmed offers.</p>
                 </div>
+                <button class="shop-scroll-cue" type="button" aria-controls="shop-categories">
+                    <span>Scroll to shop</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg>
+                </button>
             </div>
         </section>
 
         <!-- CATEGORIES -->
-        <section class="shop-categories-wrap" aria-label="Product categories">
+        <section class="shop-categories-wrap" id="shop-categories" aria-label="Product categories">
             <div class="container">
                 <div class="shop-categories" id="category-tabs" role="tablist" aria-label="Browse by category">
                     <button class="shop-category active" data-category="all" role="tab" aria-selected="true">All<span class="shop-category-count" data-count-for="all"></span></button>
