@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Given Beauty | Accessibly Luxurious Hair</title>
+    <meta name="description" content="Beauty, Given. Discover accessibly luxurious hair by Given Beauty.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div class="preloader">
+        <div class="preloader-logo-container">
+            <div class="preloader-emblem" aria-hidden="true">
+                <span class="preloader-light"></span>
+            </div>
+            <div class="logo preloader-logo">
+                <span class="logo-main">GIVEN BEAUTY</span>
+                <span class="logo-sub">— BEAUTY, GIVEN. —</span>
+            </div>
+        </div>
+        <div class="preloader-line"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <a href="#home" class="logo header-logo">
+            <span class="logo-main">GIVEN BEAUTY</span>
+            <span class="logo-sub">— BEAUTY, GIVEN. —</span>
+        </a>
+        <div class="header-actions">
+            <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu-overlay" id="mobile-menu" aria-hidden="true" inert>
+        <button class="close-menu" type="button" aria-label="Close menu">&times;</button>
+        <nav class="mobile-nav">
+            <a href="#home">Home</a>
+            <a href="#story">Our Story</a>
+            <a href="#looks">The Looks</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+
+    <!-- SECTION 01 — HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?q=80&w=2000&auto=format&fit=crop" alt="Given Beauty editorial portrait">
+        </div>
+
+        <div class="container">
+            <div class="hero-text">
+                <span class="label">— BEAUTY, GIVEN.</span>
+                <h1 class="display">More than hair.<br>It's your story.</h1>
+                <p class="hero-subline">Accessibly luxurious hair — for the beauty that was always yours.</p>
+                <div class="hero-buttons">
+                    <a href="../shopping/shopping-index.html" class="btn btn-primary">
+                        Start Shopping
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <a href="#story" class="hero-scroll-cue">
+                <span>Scroll to see our story</span>
+                <span class="hero-scroll-cue-line" aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="hero-unfold">
+            <div class="hero-unfold-bg">
+                <img src="https://images.unsplash.com/photo-1618220179428-22790b46a0eb?q=80&w=2000&auto=format&fit=crop" alt="Woman in sunlight">
+            </div>
+            <div class="unfold-content">
+                <span class="label">The Given Philosophy</span>
+                <h2 class="display">You are a gift.</h2>
+                <p>We believe beauty is a gift, not a privilege. You are a gift — worthy before any style, any purchase. Everything we make begins there: beautiful hair, honestly made, at prices that respect your life.</p>
+                <a href="#poetry" class="btn btn-ghost">
+                    Continue The Story
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 02 — YOU ARE THE POETRY OF GOD -->
+    <section class="poetry-editorial" id="poetry">
+        <div class="container">
+            <div class="poetry-editorial-grid">
+                <div class="poetry-editorial-text">
+                    <span class="label">The Given Philosophy</span>
+                    <h2 class="poetry-editorial-display">You are the <em>poetry of God.</em></h2>
+                    <p class="poetry-editorial-body">Every woman carries a beauty that was given, not earned. Rooted in faith, open to all — this is the belief that shapes everything we do, and everything we make.</p>
+                    <a href="#looks" class="btn btn-ghost">
+                        Explore The Looks
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <figure class="poetry-editorial-image">
+                    <img src="assets/poetry.jpg" alt="Quiet editorial portrait in warm light">
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 03 — THE MEANING OF GIVEN -->
+    <section class="given-story" id="story">
+        <div class="container">
+            <span class="given-watermark" aria-hidden="true">GIVEN</span>
+            <div class="given-grid">
+                <div class="given-image">
+                    <img src="assets/Melanin🤎.jpeg" alt="Woman smiling softly in natural light">
+                </div>
+                <div class="given-text">
+                    <span class="label reveal-text">The Meaning of Given</span>
+                    <h2 class="heading reveal-text">A name that carries a gift.</h2>
+                    <p class="given-body reveal-text">Given comes from a simple, personal belief — that the founder herself was a gift given by God to her parents. That gratitude became a philosophy: that beauty is a gift to be received, celebrated, and shared.</p>
+                    <p class="given-body reveal-text">Not something to be earned or bought. Something to be received — and generously given to every woman, at every budget.</p>
+                    <a href="#pillars" class="link-arrow reveal-text">
+                        Explore Our Pillars
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 04 — THE PILLARS -->
+    <section class="pillars" id="pillars">
+        <div class="container">
+            <div class="pillars-header">
+                <span class="label">The Given Pillars</span>
+                <h2 class="heading">Six beliefs<br>that shape everything.</h2>
+            </div>
+            <div class="pillars-grid">
+                <article class="pillar-card">
+                    <span class="pillar-num">01</span>
+                    <h3 class="pillar-title">Beauty Is a Gift</h3>
+                    <p class="pillar-body">Something to celebrate — not a luxury reserved for the few.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="pillar-num">02</span>
+                    <h3 class="pillar-title">You Are a Gift</h3>
+                    <p class="pillar-body">Every woman carries inherent dignity, worth, and value — before any purchase.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="pillar-num">03</span>
+                    <h3 class="pillar-title">Embrace Confidence</h3>
+                    <p class="pillar-body">Hair becomes a way to step into the day with quiet assurance.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="pillar-num">04</span>
+                    <h3 class="pillar-title">Beauty for Every Budget</h3>
+                    <p class="pillar-body">A beautiful look should never strain your finances or your peace.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="pillar-num">05</span>
+                    <h3 class="pillar-title">Rooted in Gratitude</h3>
+                    <p class="pillar-body">Appreciation, purpose, and community shape how we grow.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="pillar-num">06</span>
+                    <h3 class="pillar-title">Grace-Led Excellence</h3>
+                    <p class="pillar-body">Integrity and care in every detail of every interaction.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 05 — BEAUTY WITHOUT FINANCIAL PRESSURE -->
+    <section class="pressure" id="pressure">
+        <div class="container">
+            <div class="pressure-header">
+                <span class="label">The Given Position</span>
+                <h2 class="heading">Good-looking.<br>Quality. Affordable.</h2>
+                <p class="pressure-intro">A meaningful place between two extremes — honest quality, natural-looking style, at a price that respects your life.</p>
+            </div>
+            <div class="pressure-panels">
+                <article class="pressure-panel">
+                    <span class="pressure-tag">Low-cost synthetics</span>
+                    <p class="pressure-copy">Often shiny and artificial, with a short, unsatisfying life. Cheap — but you feel it every day.</p>
+                    <span class="pressure-rule" aria-hidden="true"></span>
+                </article>
+                <article class="pressure-panel pressure-panel--center">
+                    <span class="pressure-tag">Given Beauty</span>
+                    <p class="pressure-copy">High-grade fibre and blended hair, carefully selected for a natural look, soft feel, and an honest price.</p>
+                    <span class="pressure-rule" aria-hidden="true"></span>
+                </article>
+                <article class="pressure-panel">
+                    <span class="pressure-tag">Premium human hair</span>
+                    <p class="pressure-copy">Beautiful — but often several thousand rands, out of reach for the everyday switch.</p>
+                    <span class="pressure-rule" aria-hidden="true"></span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 06 — THE LOOKS -->
+    <section class="looks" id="looks">
+        <div class="container">
+            <div class="looks-header">
+                <div>
+                    <span class="label">The Looks</span>
+                    <h2 class="heading" style="margin-top: 1rem;">Your beauty.<br>Your way.</h2>
+                    <p class="looks-body">For the woman who changes her look with her mood, her outfit, her season — a new style without spending thousands on every change. Change your look; never your worth.</p>
+                </div>
+                <a href="#collection" class="link-arrow">
+                    Explore Looks
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div id="looks-controls">
+                <button type="button" class="link-arrow" id="look-previous" aria-label="Previous look">Previous look</button>
+                <span id="look-dots"></span>
+                <button type="button" class="link-arrow" id="look-next" aria-label="Next look">Next look</button>
+                <p id="look-caption" class="looks-body" aria-live="polite"></p>
+            </div>
+            <div class="looks-grid" id="looks-grid" tabindex="0" aria-label="Sample looks. Use left and right arrow keys to change look.">
+                <div class="looks-item">
+                    <img src="assets/Premium birthday shoot.jpeg" alt="Hairstyle 1" data-mood="Soft and expressive">
+                </div>
+                <div class="looks-item">
+                    <img src="assets/blacklady.jpeg" alt="Hairstyle 2" data-mood="Quiet and grounded">
+                </div>
+                <div class="looks-item">
+                    <img src="assets/HIGH& HAIR RETOUCH _ before and after - Anna Bel Dyden.jpeg" alt="Hairstyle 3" data-mood="Confident and radiant">
+                </div>
+                <div class="looks-item">
+                    <img src="assets/_ (13).jpeg" alt="Hairstyle 4" data-mood="Open and joyful">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE COLLECTION -->
+    <section class="collection" id="collection">
+        <div class="container">
+            <div class="collection-image">
+                <img src="assets/194493c644fdbdd886997ee7cb7e0a85.jpg" alt="Hair texture detail">
+            </div>
+            <div class="collection-text">
+                <span class="label">The Collection</span>
+                <h2 class="heading">Quality hair.<br>Accessible luxury.</h2>
+                <p class="collection-standard reveal-text">Good-looking. Quality. Affordable.</p>
+                <p class="collection-body reveal-text">Crafted from high-grade fibre and blended hair — softly natural, easy to wear, and honestly priced. Our first chapter, made with care.</p>
+                <a href="#contact" class="link-arrow">
+                    Shop The Collection
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <div class="collection-circle">
+                    <img src="assets/194493c644fdbdd886997ee7cb7e0a85.jpg" alt="Hair detail">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 07 — QUALITY & HONESTY -->
+    <section class="quality" id="quality">
+        <div class="container">
+            <div class="quality-grid">
+                <figure class="quality-image">
+                    <img src="assets/2eb071b94bed9690158eee94e9a6ddb0.jpg" alt="Close-up textured hair detail">
+                </figure>
+                <div class="quality-text">
+                    <span class="label">Quality & Honesty</span>
+                    <h2 class="heading">Quality you can feel.<br>Honesty you can trust.</h2>
+                    <p class="quality-body">Affordable should never mean careless. Every piece is chosen for the way it looks and feels in real light — softly natural, easy to wear, and made with intentionality.</p>
+                    <ul class="quality-points">
+                        <li>Natural-looking appearance</li>
+                        <li>Realistic lustre</li>
+                        <li>Soft texture</li>
+                        <li>Careful wig-cap construction</li>
+                    </ul>
+                    <p class="quality-note">These are the priorities we design for — not certified guarantees. We are honest about our materials: high-grade fibre and blended hair, not human hair.</p>
+                    <a href="#collection" class="link-arrow link-arrow--light" style="margin-top: 2rem;">
+                        Explore The Collection
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 08 — THE VALUES -->
+    <section class="values" id="values">
+        <div class="container">
+            <div class="values-header">
+                <span class="label">The Given Values</span>
+                <h2 class="heading">Seven values.<br>One standard.</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3 class="value-name">Affordability</h3>
+                    <p class="value-line">Beauty that respects your life.</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-name">Quality</h3>
+                    <p class="value-line">Affordable never means careless.</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-name">Confidence</h3>
+                    <p class="value-line">Expression before expectation.</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-name">Authenticity</h3>
+                    <p class="value-line">Honest materials, honest words.</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-name">Excellence</h3>
+                    <p class="value-line">Every detail, intentionally.</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-name">Faith</h3>
+                    <p class="value-line">Gratitude at the centre.</p>
+                </div>
+                <div class="value-item">
+                    <h3 class="value-name">Generosity</h3>
+                    <p class="value-line">Growth that gives back.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 09 — A BEAUTIFUL FUTURE -->
+    <section class="future" id="future">
+        <div class="future-bg">
+            <img src="assets/f5f7ca3e0b5f5cc3559c91e76ccac8c7.jpg" alt="Warm light rising through landscape">
+        </div>
+        <div class="container">
+            <div class="future-text">
+                <span class="label">Looking Ahead</span>
+                <h2 class="heading">A beautiful future,<br>built on trust.</h2>
+                <p class="future-body">Today, our focus is high-grade fibre and blended hair — honestly made, honestly priced. Tomorrow, we hope to extend that same standard into accessible human hair, while keeping every promise we make today: affordability without strain, quality without compromise, and care at every step.</p>
+                <a href="#story" class="btn btn-ghost">
+                    Discover Our Story
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 10 — SIGNATURE ENDING -->
+    <section class="ending" id="contact">
+        <div class="ending-bg">
+            <img src="assets/194493c644fdbdd886997ee7cb7e0a85.jpg" alt="Atmospheric warm landscape">
+        </div>
+        <div class="container">
+            <div class="ending-text">
+                <span class="label">Get in Touch</span>
+                <h2 class="display">We'd love to<br><em>hear from you.</em></h2>
+                <p class="ending-subline">Questions, collaborations, or simply want to say hello? Leave us a note.</p>
+                <a href="#story" class="btn btn-ghost">
+                    Explore Our Story
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <form class="enquiry-form">
+                <p class="enquiry-form-note">Share a little about what you have in mind.</p>
+                <div class="enquiry-form-fields">
+                    <div class="enquiry-field">
+                        <label for="enquiry-name">Name</label>
+                        <input id="enquiry-name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+                    </div>
+                    <div class="enquiry-field">
+                        <label for="enquiry-email">Email</label>
+                        <input id="enquiry-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+                    </div>
+                    <div class="enquiry-field enquiry-field-full">
+                        <label for="enquiry-subject">Subject</label>
+                        <input id="enquiry-subject" name="subject" type="text" placeholder="What would you like to talk about?">
+                    </div>
+                    <div class="enquiry-field enquiry-field-full">
+                        <label for="enquiry-message">Message</label>
+                        <textarea id="enquiry-message" name="message" rows="4" placeholder="Write your message..." required></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary enquiry-submit" type="submit">Send enquiry</button>
+                <p class="enquiry-status" role="status" aria-live="polite">Form preview only — submissions are not connected yet.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-emblem">
+                <a href="#home" class="logo footer-logo" aria-label="Given Beauty — back to top">
+                    <span class="logo-main">GIVEN BEAUTY</span>
+                    <span class="logo-sub">— BEAUTY, GIVEN. —</span>
+                </a>
+            </div>
+
+            <h2 class="display footer-display">Beauty, <em>Given.</em></h2>
+            <p class="footer-tagline">Because beauty is not a privilege — it is a gift, given freely to every woman.</p>
+
+            <div class="footer-divider"></div>
+
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="#story">Our Story</a>
+                <a href="#looks">The Looks</a>
+                <a href="#collection">The Collection</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="footer-bottom">
+                <span class="footer-copyright">© 2026 Given Beauty. All rights reserved.</span>
+                <a href="#home" class="back-to-top">
+                    Back to top
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
