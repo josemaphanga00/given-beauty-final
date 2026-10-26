@@ -7,6 +7,19 @@
         if (hasGsap) {
             gsap.registerPlugin(ScrollTrigger);
             const preloaderTl = gsap.timeline();
+            let preloaderFallback;
+            const removePreloader = () => {
+                window.clearTimeout(preloaderFallback);
+                document.querySelector('.preloader')?.remove();
+            };
+            preloaderFallback = window.setTimeout(removePreloader, 5000);
+            const removePreloaderWhenVisible = () => {
+                if (document.hidden) return;
+                preloaderTl.progress(1);
+                removePreloader();
+                document.removeEventListener('visibilitychange', removePreloaderWhenVisible);
+            };
+            document.addEventListener('visibilitychange', removePreloaderWhenVisible);
 
             preloaderTl
               .to('.preloader-logo-container', { opacity: 1, duration: 0.8, ease: 'power3.out' }, 0)
@@ -18,7 +31,12 @@
               .to('.preloader-line', { opacity: 1, duration: 0.8, ease: 'power3.inOut' }, 0.6)
               .to('.preloader-logo-container', { opacity: 0, y: -14, duration: 0.6, ease: 'power2.inOut' }, 1.95)
               .to('.preloader-line', { opacity: 0, duration: 0.35 }, 1.95)
-              .to('.preloader', { yPercent: -100, duration: 0.9, ease: 'power3.inOut' }, 2.3)
+              .to('.preloader', {
+                  yPercent: -100,
+                  duration: 0.9,
+                  ease: 'power3.inOut',
+                  onComplete: removePreloader
+              }, 2.3)
               .from('.hero-text > *', { y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' }, 2.6);
         } else {
             document.querySelector('.preloader')?.remove();

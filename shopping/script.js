@@ -733,7 +733,6 @@
         }
 
         async function createPdfPhoto(item) {
-            if (!/^https?:$/.test(window.location.protocol)) return null;
             return new Promise(resolve => {
                 let settled = false;
                 const finish = value => {
@@ -815,7 +814,8 @@
                     pdf.setFontSize(8);
                     pdf.setTextColor(243, 238, 228);
                     pdf.text('Item', 46, y);
-                    pdf.text('Qty', pageWidth - 57, y);
+                    pdf.text('Unit price', pageWidth - 80, y, { align: 'right' });
+                    pdf.text('Qty', pageWidth - 57, y, { align: 'center' });
                     pdf.text('Line total', pageWidth - 15, y, { align: 'right' });
                     y += 10;
                     pdf.setFont('helvetica', 'normal');
@@ -825,9 +825,9 @@
                 drawPageChrome();
                 addTableHeading();
                 for (const item of order.items) {
-                    const nameLines = pdf.splitTextToSize(item.name, pageWidth - 115);
-                    const materialLines = pdf.splitTextToSize(item.material, pageWidth - 115);
-                    const rowHeight = Math.max(32, 8 + (nameLines.length + materialLines.length) * 4);
+                    const nameLines = pdf.splitTextToSize(item.name, 68);
+                    const materialLines = pdf.splitTextToSize(item.material, 68);
+                    const rowHeight = Math.max(36, 8 + (nameLines.length + materialLines.length) * 4);
                     if (y + rowHeight > pageHeight - 58) {
                         pdf.addPage();
                         drawPageChrome();
@@ -845,7 +845,8 @@
                     pdf.setFontSize(8);
                     pdf.text(materialLines, 44, y + 8 + nameLines.length * 4);
                     pdf.setTextColor(33, 31, 28);
-                    pdf.text(String(item.quantity), pageWidth - 57, y + 7);
+                    pdf.text(fmtR(item.unitPrice), pageWidth - 80, y + 7, { align: 'right' });
+                    pdf.text(String(item.quantity), pageWidth - 57, y + 7, { align: 'center' });
                     pdf.text(fmtR(item.unitPrice * item.quantity), pageWidth - 15, y + 7, { align: 'right' });
                     pdf.setDrawColor(214, 204, 185);
                     pdf.line(margin, y + rowHeight, pageWidth - margin, y + rowHeight);
@@ -858,7 +859,7 @@
                 const cardHeight = 58;
                 const notice = 'This is an order request and is confirmed once payment is received. Delivery cost, stock hold time and confirmation email are to be confirmed.';
                 const noticeLines = pdf.splitTextToSize(notice, contentWidth);
-                const paymentSectionHeight = 9 + cardHeight + 7 + noticeLines.length * 4.5 + 26;
+                const paymentSectionHeight = 18 + cardHeight + 7 + noticeLines.length * 4.5 + 26;
                 if (y + 8 + paymentSectionHeight > pageHeight - 16) {
                     pdf.addPage();
                     drawPageChrome();
@@ -868,6 +869,11 @@
                 pdf.setLineWidth(0.5);
                 pdf.line(margin, y, pageWidth - margin, y);
                 y += 8;
+                const totalQuantity = order.items.reduce((total, item) => total + item.quantity, 0);
+                pdf.setFont('helvetica', 'normal');
+                pdf.setFontSize(9);
+                pdf.setTextColor(57, 51, 44);
+                pdf.text(`Items ordered: ${totalQuantity} across ${order.items.length} product${order.items.length === 1 ? '' : 's'}`, margin, y);
                 pdf.setFont('helvetica', 'bold');
                 pdf.setFontSize(12);
                 pdf.setTextColor(33, 31, 28);
